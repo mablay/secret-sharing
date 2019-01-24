@@ -1,13 +1,20 @@
 <template>
-  <div class="home">
+  <div class="home container-fluid">
     <h1>Secret Sharing</h1>
     <div id="nav">
       <router-link to="/about">About</router-link>
     </div>
 
     <Config/>
-    <Shares/>
-    <Pieces/>
+    <div class="row">
+      <div class="col-md-6">
+        <Shares/>
+      </div>
+      <div class="col-md-6">
+        <Pieces/>
+      </div>
+    </div>
+    <Result/>
   </div>
 </template>
 
@@ -16,13 +23,15 @@
 import Config from '@/components/Config.vue'
 import Shares from '@/components/Shares.vue'
 import Pieces from '@/components/Pieces.vue'
+import Result from '@/components/Result.vue'
 
 export default {
   name: 'home',
   components: {
     Config,
     Shares,
-    Pieces
+    Pieces,
+    Result
   }
 }
 </script>

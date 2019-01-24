@@ -44,7 +44,6 @@ export default new Vuex.Store({
           if (i < 0 || i > 100) return false
           return true
         })
-      // console.log('result:', validPieces, shamir.combine(validPieces))
       return htoa(shamir.combine(validPieces))
     }
   },
@@ -54,8 +53,6 @@ export default new Vuex.Store({
       state.threshold = +value
       const delta = state.threshold - state.pieces.length
       if (delta > 0) {
-        // ;[...Array(delta).keys()]
-        //   .forEach(() => (state.pieces.push({ 'value': '' })))
         state.pieces.concat([...Array(delta).keys()].map(() => (state.pieces.push({ 'value': '' }))))
       } else if (delta < 0) {
         state.pieces.splice(state.pieces.length + delta, -delta)
@@ -66,35 +63,6 @@ export default new Vuex.Store({
     },
     setSecret (state, value) {
       state.secret = value
-    },
-    addPiece (state, value) {
-      state.pieces.push({ value })
-      console.log('[addPiece]', state.pieces)
-    },
-    removePiece (state, index) {
-      state.pieces.splice(index, 1)
-      console.log('[removePiece]', state.pieces)
-    }
-  },
-  actions: {
-    changeThreshold ({ state, commit }, value) {
-      const pieces = Math.floor(state.pieces.length)
-      let delta = Math.floor(value) - pieces
-      console.log('[config] set value', value, delta, pieces)
-      while (delta !== 0) {
-        if (delta < 0) {
-          console.log('[config] removePiece')
-          commit('removePiece', 0)
-          delta++
-        } else if (delta > 0) {
-          console.log('[config] addPiece')
-          commit('addPiece')
-          delta--
-        } else {
-          break
-        }
-      }
-      commit('setThreshold', value)
     }
   }
 })

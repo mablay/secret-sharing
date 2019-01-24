@@ -1,11 +1,13 @@
 <template>
-  <div class="shares">
-    <h3>Shares</h3>
-    <pre
+  <div class="shares-view">
+    <h2>Pieces</h2>
+    <div
       v-for="(share, index) in shares"
-      :key="index">
+      :key="index"
+      @focus="$event.target.select()"
+      class="share">
       {{share}}
-    </pre>
+    </div>
   </div>
 </template>
 
@@ -14,12 +16,23 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Shares',
-  computed: mapGetters(['shares'])
+  computed: mapGetters(['shares']),
+  methods: {
+    selectAll (el) {
+      console.log(el)
+      this.setSelectionRange(0, this.value.length)
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-  pre {
-    margin: 0;
+  .share {
+    margin: 4px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 16px;
+    overflow-x: hidden;
+    word-wrap: break-word;
   }
 </style>

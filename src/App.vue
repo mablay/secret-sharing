@@ -5,8 +5,13 @@
 </template>
 
 <style lang="scss">
+@import "~bootstrap/scss/bootstrap.scss";
+
 h1 {
   text-align: center;
+}
+h2 {
+  margin-top: 20px;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -16,9 +21,6 @@ h1 {
   color: #2c3e50;
 }
 #nav {
-  position: absolute;
-  top: 8px;
-  right: 8px;
   a {
     font-weight: bold;
     color: #2c3e50;
