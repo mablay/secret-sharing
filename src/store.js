@@ -23,7 +23,7 @@ export default new Vuex.Store({
     threshold: 3,
     parts: 5,
     secret: 'foobar',
-    pieces: ['8010', '8020', '8030']
+    pieces: ['', '', '']
       .map(x => ({ value: x }))
       // entered by the user (recombination attempt)
   },
@@ -52,6 +52,14 @@ export default new Vuex.Store({
     updateField,
     setThreshold (state, value) {
       state.threshold = +value
+      const delta = state.threshold - state.pieces.length
+      if (delta > 0) {
+        // ;[...Array(delta).keys()]
+        //   .forEach(() => (state.pieces.push({ 'value': '' })))
+        state.pieces.concat([...Array(delta).keys()].map(() => (state.pieces.push({ 'value': '' }))))
+      } else if (delta < 0) {
+        state.pieces.splice(state.pieces.length + delta, -delta)
+      }
     },
     setParts (state, value) {
       state.parts = +value
@@ -60,11 +68,33 @@ export default new Vuex.Store({
       state.secret = value
     },
     addPiece (state, value) {
-      state.pieces.push(value)
+      state.pieces.push({ value })
+      console.log('[addPiece]', state.pieces)
     },
     removePiece (state, index) {
       state.pieces.splice(index, 1)
+      console.log('[removePiece]', state.pieces)
     }
   },
-  actions: {}
+  actions: {
+    changeThreshold ({ state, commit }, value) {
+      const pieces = Math.floor(state.pieces.length)
+      let delta = Math.floor(value) - pieces
+      console.log('[config] set value', value, delta, pieces)
+      while (delta !== 0) {
+        if (delta < 0) {
+          console.log('[config] removePiece')
+          commit('removePiece', 0)
+          delta++
+        } else if (delta > 0) {
+          console.log('[config] addPiece')
+          commit('addPiece')
+          delta--
+        } else {
+          break
+        }
+      }
+      commit('setThreshold', value)
+    }
+  }
 })

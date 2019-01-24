@@ -1,34 +1,14 @@
 # secret-sharing
 
-## Project setup
+Split secret message for sharing using Shamir's secret sharing scheme. See [dependency](https://github.com/grempe/secrets.js#share-format)
+
+## Quickstart
 ```
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Deploy to GitHub Pages
 ```
-npm run build
+npm run deploy
 ```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

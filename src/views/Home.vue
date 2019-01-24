@@ -1,6 +1,10 @@
 <template>
   <div class="home">
     <h1>Secret Sharing</h1>
+    <div id="nav">
+      <router-link to="/about">About</router-link>
+    </div>
+
     <Config/>
     <Shares/>
     <Pieces/>
