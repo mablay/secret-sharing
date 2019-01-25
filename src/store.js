@@ -31,8 +31,11 @@ export default new Vuex.Store({
     getField,
     shares: state => {
       const hSecret = atoh(state.secret)
+      const parts = Math.max(2, +state.parts)
+      const threshold = Math.max(parts, +state.threshold)
+      console.log('parts %d, threshold %d', parts, threshold)
       console.log('secret %s => %s', state.secret, hSecret)
-      return shamir.share(hSecret, +state.parts, +state.threshold)
+      return shamir.share(hSecret, parts, threshold)
     },
     result: state => {
       const validPieces = state.pieces
