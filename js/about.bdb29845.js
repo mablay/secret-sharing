@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["about"],{f820:function(t,e,a){"use strict";a.r(e);var n=function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",{staticClass:"about"},[a("h1",[t._v("About")]),a("div",{attrs:{id:"nav"}},[a("router-link",{attrs:{to:"/"}},[t._v("Home")])],1),a("p",[t._v("Shamir secret sharing scheme")])])},s=[],r=a("2877"),i={},o=Object(r["a"])(i,n,s,!1,null,null,null);e["default"]=o.exports}}]);
+//# sourceMappingURL=about.bdb29845.js.map
