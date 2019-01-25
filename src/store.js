@@ -30,11 +30,12 @@ export default new Vuex.Store({
   getters: {
     getField,
     shares: state => {
+      // console.log('[store] getters.shares: parts', state.parts)
       const hSecret = atoh(state.secret)
-      const parts = Math.max(2, +state.parts)
-      const threshold = Math.max(parts, +state.threshold)
-      console.log('parts %d, threshold %d', parts, threshold)
-      console.log('secret %s => %s', state.secret, hSecret)
+      const parts = Math.max(2, parseInt(state.parts))
+      const threshold = Math.min(parts, parseInt(state.threshold))
+      console.log('[store] getters.shares: parts %d, threshold %d', parts, threshold)
+      console.log('[store] getters.shares: secret %s => %s', state.secret, hSecret)
       return shamir.share(hSecret, parts, threshold)
     },
     result: state => {
@@ -53,7 +54,8 @@ export default new Vuex.Store({
   mutations: {
     updateField,
     setThreshold (state, value) {
-      state.threshold = +value
+      state.threshold = parseInt(value)
+      console.log('[store] mutation.setThreshold', state.threshold)
       const delta = state.threshold - state.pieces.length
       if (delta > 0) {
         state.pieces.concat([...Array(delta).keys()].map(() => (state.pieces.push({ 'value': '' }))))
@@ -62,7 +64,8 @@ export default new Vuex.Store({
       }
     },
     setParts (state, value) {
-      state.parts = +value
+      console.log('[store] mutations.setParts', state, value)
+      state.parts = parseInt(value)
     },
     setSecret (state, value) {
       state.secret = value

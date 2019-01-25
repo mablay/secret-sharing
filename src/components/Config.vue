@@ -7,6 +7,15 @@
           <div class="row">
             <div class="col-8">
               How many pieces shall be required to regenerate the secret?
+              <div>
+                <vue-slider
+                  v-model="threshold"
+                  :min="2"
+                  :max="parts"
+                  tooltip="false"
+                  width="auto"
+                />
+              </div>
             </div>
             <div class="col-4">
               <input
@@ -25,13 +34,22 @@
           <div class="row">
             <div class="col-8">
               How many shares of the secret would you like to distribute?
+              <div>
+                <vue-slider
+                  v-model="parts"
+                  :min="threshold"
+                  :max="9"
+                  tooltip="false"
+                  width="auto"
+                />
+              </div>
             </div>
             <div class="col-4">
               <input
-              class="big-control form-control"
-              type="number"
-              :min="threshold"
-              v-model="parts">
+                class="big-control form-control"
+                type="number"
+                :min="threshold"
+                v-model="parts">
             </div>
           </div>
         </div>
@@ -50,17 +68,32 @@
 
 <script>
 import { mapFields } from 'vuex-map-fields'
+import vueSlider from 'vue-slider-component'
 
 export default {
   name: 'Config',
+  components: {
+    vueSlider
+  },
   computed: {
-    ...mapFields(['secret', 'threshold', 'parts']),
+    ...mapFields(['secret']),
+    parts: {
+      get () {
+        console.log('[config] parts.get')
+        return this.$store.state.parts
+      },
+      set (value) {
+        console.log('[config] parts.set', value)
+        this.$store.commit('setParts', parseInt(value))
+      }
+    },
     threshold: {
       get () {
         return this.$store.state.threshold
       },
       set (value) {
-        this.$store.commit('setThreshold', value)
+        console.log('[config] threshold.set', value)
+        this.$store.commit('setThreshold', parseInt(value))
       }
     }
   }
